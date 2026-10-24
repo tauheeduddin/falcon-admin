@@ -44,7 +44,7 @@
 
         /* ---------- LOGIN PAGE ---------- */
         #loginPage {
-            display: flex; /* Default flex */
+            display: flex; 
             flex-direction: column;
             justify-content: center;
             height: 100%;
@@ -94,7 +94,7 @@
 
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
-            display: none; /* Shuru me hidden rahega */
+            display: none;
             flex-direction: column;
             height: 100%;
             padding: 15px;
@@ -176,7 +176,7 @@
         
         .scrollable-list::-webkit-scrollbar { display: none; }
 
-        /* ---------- KEY LIST (Chota Box) ---------- */
+        /* ---------- KEY LIST ---------- */
         .key-card {
             background: var(--card-bg);
             padding: 10px 12px;
@@ -549,28 +549,58 @@
 
 <div id="toast">Key Copied!</div>
 
+<!-- FIREBASE SDK CONFIGURATION -->
+<script type="module">
+    // Firebase imports (New v10 Modular SDK)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Tera Firebase Config (jo tune screenshot me bheja tha)
+    const firebaseConfig = {
+        apiKey: "AIzaSyBAqD5W4vRBH6XFRFhv-vWBQzxo1KfZ6I",
+        authDomain: "falcon-engine-f6f40.firebaseapp.com",
+        projectId: "falcon-engine-f6f40",
+        storageBucket: "falcon-engine-f6f40.firebasestorage.app",
+        messagingSenderId: "899223498879",
+        appId: "1:899223498879:web:7c1a64b91c80130a23cf4a",
+        measurementId: "G-GB4D772M3Y"
+    };
+
+    // Initialize Firebase & Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Expose functions to window object so HTML can call them
+    window.db = db;
+    window.dbCollection = collection;
+    window.dbAddDoc = addDoc;
+    window.dbGetDocs = getDocs;
+    window.dbDeleteDoc = deleteDoc;
+    window.dbDoc = doc;
+    window.dbQuery = query;
+    window.dbWhere = where;
+</script>
+
+<!-- APP LOGIC -->
 <script>
+    // Admin Credentials
     const ADMIN_USER = "FALCONBYTAUHEED";
     const ADMIN_PASS = "TAUHEEDRAZAQADRI";
 
-    let allKeys = JSON.parse(localStorage.getItem('falconKeys')) || [];
     let generatedKey = "";
     let selectedDurationText = "30 Days";
     let selectedDurationHours = 720; 
-    let keyIndexToDelete = -1;
+    let keyIdToDelete = ""; // Firebase Document ID
 
-    updateUI();
-
+    // Login Function
     function login() {
         const user = document.getElementById('adminUser').value;
         const pass = document.getElementById('adminPass').value;
 
         if (user === ADMIN_USER && pass === ADMIN_PASS) {
-            // Login page hide karo
             document.getElementById('loginPage').style.display = 'none';
-            // Main page flex me dikhao
             document.getElementById('mainPage').style.display = 'flex';
-            updateUI();
+            loadKeysFromCloud(); // Load keys from Firebase
         } else {
             showToast("Invalid Credentials!");
         }
@@ -585,6 +615,7 @@
         document.getElementById('generatePage').classList.remove('active');
     }
 
+    // Generate Key: 1 Capital Alphabet + 4 Numbers
     function generatePremiumKey() {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const numbers = "0123456789";
@@ -610,43 +641,104 @@
         showToast("Key Copied!");
     }
 
-    function generateNewKey() {
+    // Save Key to Database
+    async function generateNewKey() {
         const devLimit = document.getElementById('deviceLimit').value;
-        const currentTime = new Date().getTime();
-        const expiryTime = currentTime + (selectedDurationHours * 60 * 60 * 1000);
-
+        
         const newKeyObj = {
             key: generatedKey,
-            durationText: selectedDurationText,
-            deviceLimit: devLimit,
-            status: "ACTIVE",
-            expireAt: expiryTime
+            duration: selectedDurationText,
+            deviceLimit: parseInt(devLimit),
+            status: "ACTIVE"
+            // Note: Time abhi ke liye hum app me check karenge, ya baad me server time add karenge
         };
 
-        allKeys.unshift(newKeyObj); 
-        localStorage.setItem('falconKeys', JSON.stringify(allKeys));
-        
-        showToast("Key Generated Successfully!");
-        hideGeneratePage();
-        updateUI();
+        try {
+            // Save to Firebase
+            await window.dbAddDoc(window.dbCollection(window.db, "keys"), newKeyObj);
+            showToast("Key Generated & Saved to Cloud!");
+            hideGeneratePage();
+            loadKeysFromCloud(); // Refresh list
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            showToast("Error saving key. Check console.");
+        }
     }
 
-    function openDeletePopup(index) {
-        keyIndexToDelete = index;
+    // Load Keys from Database
+    async function loadKeysFromCloud() {
+        const keysList = document.getElementById('keysList');
+        keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px; font-size: 14px;">Loading cloud data...</p>`;
+
+        try {
+            const querySnapshot = await window.dbGetDocs(window.dbCollection(window.db, "keys"));
+            let allKeys = [];
+            
+            querySnapshot.forEach((doc) => {
+                allKeys.push({
+                    id: doc.id, // Firebase document ID
+                    ...doc.data()
+                });
+            });
+
+            // Total count update
+            document.getElementById('totalKeysCount').innerText = allKeys.length.toString().padStart(2, '0');
+            document.getElementById('listCount').innerText = allKeys.length + " KEYS";
+
+            keysList.innerHTML = "";
+
+            if (allKeys.length === 0) {
+                keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px; font-size: 14px;">No active keys found.</p>`;
+                return;
+            }
+
+            allKeys.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'key-card';
+                card.innerHTML = `
+                    <div class="key-header-row">
+                        <div class="key-name">${item.key}</div>
+                    </div>
+                    <div class="key-details-text">Validity: ${item.duration} | Devices: ${item.deviceLimit}</div>
+                    <div class="key-actions">
+                        <button class="action-btn" onclick="copyExistingKey('${item.key}')">
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
+                        </button>
+                        <button class="action-btn delete" onclick="openDeletePopup('${item.id}')">
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> DELETE
+                        </button>
+                    </div>
+                `;
+                keysList.appendChild(card);
+            });
+
+        } catch (e) {
+            console.error("Error getting documents: ", e);
+            keysList.innerHTML = `<p style="color: var(--red); text-align: center; margin-top: 20px; font-size: 14px;">Failed to load data. Check internet.</p>`;
+        }
+    }
+
+    function openDeletePopup(id) {
+        keyIdToDelete = id;
         document.getElementById('deletePopup').classList.add('active');
     }
 
     function closeDeletePopup() {
         document.getElementById('deletePopup').classList.remove('active');
-        keyIndexToDelete = -1;
+        keyIdToDelete = "";
     }
 
-    function confirmDelete() {
-        if (keyIndexToDelete > -1) {
-            allKeys.splice(keyIndexToDelete, 1);
-            localStorage.setItem('falconKeys', JSON.stringify(allKeys));
-            updateUI();
-            showToast("Key Deleted!");
+    // Delete Key from Database
+    async function confirmDelete() {
+        if (keyIdToDelete !== "") {
+            try {
+                await window.dbDeleteDoc(window.dbDoc(window.db, "keys", keyIdToDelete));
+                showToast("Key Deleted from Cloud!");
+                loadKeysFromCloud(); // Refresh
+            } catch (e) {
+                console.error("Error deleting document: ", e);
+                showToast("Error deleting key.");
+            }
         }
         closeDeletePopup();
     }
@@ -655,46 +747,6 @@
         navigator.clipboard.writeText(key);
         showToast("Copied: " + key);
     }
-
-    function updateUI() {
-        const currentTime = new Date().getTime();
-        
-        allKeys = allKeys.filter(item => item.expireAt > currentTime);
-        localStorage.setItem('falconKeys', JSON.stringify(allKeys));
-
-        document.getElementById('totalKeysCount').innerText = allKeys.length.toString().padStart(2, '0');
-        document.getElementById('listCount').innerText = allKeys.length + " KEYS";
-
-        const keysList = document.getElementById('keysList');
-        keysList.innerHTML = "";
-
-        if (allKeys.length === 0) {
-            keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px; font-size: 14px;">No active keys found.</p>`;
-            return;
-        }
-
-        allKeys.forEach((item, index) => {
-            const card = document.createElement('div');
-            card.className = 'key-card';
-            card.innerHTML = `
-                <div class="key-header-row">
-                    <div class="key-name">${item.key}</div>
-                </div>
-                <div class="key-details-text">Validity: ${item.durationText} | Devices: ${item.deviceLimit}</div>
-                <div class="key-actions">
-                    <button class="action-btn" onclick="copyExistingKey('${item.key}')">
-                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
-                    </button>
-                    <button class="action-btn delete" onclick="openDeletePopup(${index})">
-                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> DELETE
-                    </button>
-                </div>
-            `;
-            keysList.appendChild(card);
-        });
-    }
-
-    setInterval(updateUI, 10000);
 
     function showToast(message) {
         const toast = document.getElementById("toast");
