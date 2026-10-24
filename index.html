@@ -29,12 +29,13 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
-            padding: 15px; /* Size thoda chota kiya */
+            max-width: 420px;
+            padding: 15px;
             position: relative;
         }
 
@@ -48,7 +49,7 @@
 
         .login-card {
             background: var(--card-bg);
-            padding: 25px 20px; /* Padding kam ki */
+            padding: 25px 20px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
             text-align: center;
@@ -57,10 +58,10 @@
         .login-card h2 {
             margin-bottom: 20px;
             letter-spacing: 2px;
-            font-size: 20px; /* Size chota kiya */
+            font-size: 20px;
         }
 
-        input[type="text"], input[type="password"], input[type="number"] {
+        input {
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 15px;
@@ -89,40 +90,42 @@
 
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
-            display: none; 
+            display: block;
         }
 
         .header-card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
         }
 
         .header-icon {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             background: #2A2D36;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 12px;
-            font-weight: bold;
-            color: #FFD700;
         }
 
-        .header-title h3 { font-size: 16px; }
-        .header-title p { font-size: 11px; color: var(--text-muted); }
+        .header-title h3 { font-size: 18px; letter-spacing: 1px; }
+        .header-title p { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
 
-        /* Ek lamba Total Keys block */
+        .settings-icon {
+            margin-left: auto;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
         .stat-card-long {
             background: var(--card-bg);
             padding: 20px;
-            border-radius: 16px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -130,27 +133,30 @@
             margin-bottom: 15px;
         }
 
-        .stat-card-long h1 { font-size: 36px; }
-        .stat-card-long p { font-size: 14px; color: var(--text-muted); }
+        .stat-card-long .label { display: flex; align-items: center; font-size: 14px; color: var(--text-muted); letter-spacing: 1px;}
+        .stat-card-long .label span { margin-right: 8px; font-size: 16px; }
+        .stat-card-long h1 { font-size: 28px; font-weight: bold; letter-spacing: 1px;}
 
         .btn-generate {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background: var(--btn-grey);
             color: #000;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            letter-spacing: 1px;
         }
-        .btn-generate span { font-size: 11px; font-weight: normal; margin-top: 4px; color: #333;}
+        .btn-generate span { font-size: 20px; margin-right: 8px; }
 
-        h2.list-title { font-size: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        h2.list-title { font-size: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; letter-spacing: 1px;}
+        h2.list-title span { font-size: 12px; color: var(--text-muted); font-weight: normal; margin-top: 4px; letter-spacing: 0;}
 
         /* ---------- KEY LIST ---------- */
         .key-card {
@@ -158,31 +164,27 @@
             padding: 15px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .key-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .key-name { font-size: 16px; font-weight: bold; }
+        .key-label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px;}
+        .key-name { font-size: 18px; font-weight: bold; margin-bottom: 15px; letter-spacing: 1px;}
         
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
+        .key-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        .status-active { background: #1B331F; color: var(--green); }
 
-        .key-details {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
+        .info-box {
+            background: #13151A;
+            padding: 10px;
+            border-radius: 8px;
         }
+
+        .info-box .info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; letter-spacing: 1px;}
+        .info-box .info-value { font-size: 14px; font-weight: bold; }
 
         .key-actions { display: flex; gap: 10px; }
 
@@ -191,97 +193,160 @@
             padding: 10px;
             background: transparent;
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 20px;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            letter-spacing: 1px;
         }
 
-        .action-btn.delete {
-            color: var(--red);
-            border-color: #441111;
-        }
+        .action-btn span { margin-right: 5px; }
+        .action-btn.delete { color: var(--red); border-color: #441111; }
 
-        /* ---------- GENERATE PAGE ---------- */
+        /* ---------- GENERATE PAGE (Animation) ---------- */
         #generatePage {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            padding: 15px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 10;
+            display: block;
+        }
+
+        #generatePage.active {
+            transform: translateX(0);
+        }
+
+        .back-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
         }
 
         .back-btn {
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 28px;
             cursor: pointer;
-            padding: 5px;
+            line-height: 1;
+            padding: 0;
+            margin-left: auto;
         }
 
-        .gen-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .gen-card h2 { font-size: 20px; margin-bottom: 5px; }
-        .gen-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
+        .gen-card { background: transparent; padding: 0; }
+        .gen-card h2 { font-size: 20px; margin-bottom: 20px; }
 
         .gen-key-box {
             background: #0A0A0A;
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
-            text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
         }
 
-        .gen-key-text {
-            font-size: 28px;
+        .gen-key-box .label { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+        
+        .key-input-row { display: flex; gap: 10px; }
+
+        .key-display {
+            flex: 1;
+            background: #13151A;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 20px;
             font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            letter-spacing: 1px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .copy-btn-small {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            padding: 0 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        .copy-btn-small span { margin-right: 5px; }
+
+        .input-label { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; display: block; }
+        
+        .gen-card input {
+            background: #13151A;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
         }
 
         .duration-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .duration-btn {
             padding: 12px;
-            background: #22252D;
+            background: #13151A;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-muted);
             font-size: 13px;
             font-weight: bold;
             cursor: pointer;
+            text-align: center;
         }
 
         .duration-btn.active {
-            background: #444;
+            background: #2A2D36;
             color: #fff;
-            border-color: #666;
+            border-color: #555;
         }
 
-        .label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; font-weight: bold;}
+        .duration-btn.active::before {
+            content: '✓ ';
+            color: #ccc;
+        }
 
-        /* Custom Toast Notification */
+        .btn-confirm-gen {
+            width: 100%;
+            padding: 15px;
+            background: var(--btn-grey);
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
         #toast {
             visibility: hidden;
-            min-width: 250px;
+            min-width: 200px;
             background-color: #2A2D36;
             color: #fff;
             text-align: center;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 25px;
+            padding: 12px 20px;
             position: fixed;
             z-index: 1000;
             bottom: 30px;
@@ -305,7 +370,6 @@
 
 <div class="container">
 
-    <!-- LOGIN PAGE -->
     <div id="loginPage">
         <div class="login-card">
             <h2>ADMIN PANEL</h2>
@@ -315,90 +379,94 @@
         </div>
     </div>
 
-    <!-- MAIN DASHBOARD -->
     <div id="mainPage">
         <div class="header-card">
-            <div class="header-icon">F</div>
+            <div class="header-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+            </div>
             <div class="header-title">
-                <h3>FALCON ENGINE</h3>
-                <p>TITANIUM EDITION</p>
+                <h3>ADMIN PANEL</h3>
+                <p>FALCON ENGINE · TITANIUM</p>
+            </div>
+            <div class="settings-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
             </div>
         </div>
 
-        <!-- Ek lamba Total Keys block -->
         <div class="stat-card-long">
-            <div>
-                <h1 id="totalKeysCount">0</h1>
-                <p>Total Keys</p>
+            <div class="label">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                TOTAL KEYS
             </div>
-            <div style="font-size: 40px; color: #333;">#</div>
+            <h1 id="totalKeysCount">0</h1>
         </div>
 
         <button class="btn-generate" onclick="showGeneratePage()">
-            + GENERATE KEYS
-            <span>Create new access keys</span>
+            <span>+</span> GENERATE KEYS
         </button>
 
         <h2 class="list-title">
-            All Keys
-            <span style="font-size: 13px; color: var(--text-muted); font-weight: normal; margin-top: 4px;" id="listCount">0 keys total</span>
+            KEYS LIST
+            <span id="listCount">0 KEYS</span>
         </h2>
         
-        <div id="keysList">
-            <!-- Keys yahan dynamically aayengi -->
-        </div>
+        <div id="keysList"></div>
     </div>
 
-    <!-- GENERATE PAGE -->
     <div id="generatePage">
-        <!-- Back Button -->
-        <button class="back-btn" onclick="showMainPage()">←</button>
+        <div class="back-header">
+             <div class="header-title">
+                <h3>ADMIN PANEL</h3>
+                <p>FALCON ENGINE · TITANIUM</p>
+            </div>
+            <button class="back-btn" onclick="hideGeneratePage()">×</button>
+        </div>
         
         <div class="gen-card">
-            <h2>GENERATE KEYS</h2>
-            <p>Auto-generated random key</p>
+            <h2>Generate Key</h2>
             
             <div class="gen-key-box">
-                <p class="label" style="text-align: left;">YOUR NEW KEY</p>
-                <div class="gen-key-text" id="newKeyDisplay">XXXXX</div>
-                <button class="action-btn" style="width: 100%; margin-top: 10px;" onclick="copyNewKey()">COPY KEY</button>
+                <div class="label">Generated Key</div>
+                <div class="key-input-row">
+                    <div class="key-display" id="newKeyDisplay">...</div>
+                    <button class="copy-btn-small" onclick="copyNewKey()">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
+                    </button>
+                </div>
             </div>
 
-            <p class="label">DEVICE LIMIT</p>
-            <input type="number" id="deviceLimit" value="1" min="1" style="margin-bottom: 20px; padding: 10px;">
+            <label class="input-label">Device Limit</label>
+            <input type="number" id="deviceLimit" value="1" min="1">
 
-            <p class="label">KEY DURATION</p>
+            <label class="input-label">Key Validity</label>
             <div class="duration-grid" id="durationGrid">
-                <div class="duration-btn" onclick="selectDuration(this, '1 Hour')">1 HOUR</div>
-                <div class="duration-btn" onclick="selectDuration(this, '1 Day')">1 DAY</div>
-                <div class="duration-btn" onclick="selectDuration(this, '3 Days')">3 DAYS</div>
-                <div class="duration-btn active" onclick="selectDuration(this, '7 Days')">7 DAYS</div>
-                <div class="duration-btn" onclick="selectDuration(this, '15 Days')">15 DAYS</div>
-                <div class="duration-btn" onclick="selectDuration(this, '1 Month')">1 MONTH</div>
-                <div class="duration-btn" onclick="selectDuration(this, '2 Months')">2 MONTHS</div>
-                <div class="duration-btn" onclick="selectDuration(this, '1 Year')">1 YEAR</div>
+                <div class="duration-btn" onclick="selectDuration(this, '1 Hour', 1)">1 Hour</div>
+                <div class="duration-btn" onclick="selectDuration(this, '1 Day', 24)">1 Day</div>
+                <div class="duration-btn" onclick="selectDuration(this, '3 Days', 72)">3 Days</div>
+                <div class="duration-btn" onclick="selectDuration(this, '7 Days', 168)">7 Days</div>
+                <div class="duration-btn" onclick="selectDuration(this, '15 Days', 360)">15 Days</div>
+                <div class="duration-btn active" onclick="selectDuration(this, '30 Days', 720)">30 Days</div>
+                <div class="duration-btn" onclick="selectDuration(this, '2 Months', 1440)">2 Months</div>
+                <div class="duration-btn" onclick="selectDuration(this, '1 Year', 8760)">1 Year</div>
             </div>
 
-            <button class="btn-primary" onclick="generateNewKey()">GENERATE NEW KEY</button>
+            <button class="btn-confirm-gen" onclick="generateNewKey()">GENERATE KEY</button>
         </div>
     </div>
 
-    <!-- Custom Toast -->
     <div id="toast">Key Copied!</div>
 
 </div>
 
 <script>
-    // Admin Credentials
     const ADMIN_USER = "FALCONBYTAUHEED";
     const ADMIN_PASS = "TAUHEEDRAZAQADRI";
 
-    // Data Storage
     let allKeys = JSON.parse(localStorage.getItem('falconKeys')) || [];
     let generatedKey = "";
-    let selectedDuration = "7 Days";
+    let selectedDurationText = "30 Days";
+    let selectedDurationHours = 720; 
 
-    // Initialize
     updateUI();
 
     function login() {
@@ -415,23 +483,21 @@
     }
 
     function showGeneratePage() {
-        document.getElementById('mainPage').style.display = 'none';
-        document.getElementById('generatePage').style.display = 'block';
-        generateRandomString();
+        document.getElementById('generatePage').classList.add('active');
+        generatePremiumKey();
     }
 
-    function showMainPage() {
-        document.getElementById('generatePage').style.display = 'none';
-        document.getElementById('mainPage').style.display = 'block';
-        updateUI();
+    function hideGeneratePage() {
+        document.getElementById('generatePage').classList.remove('active');
     }
 
-    function generateRandomString() {
+    // STRICT 5 CHARACTERS: 1 CAPITAL ALPHABET + 4 NUMBERS
+    function generatePremiumKey() {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const numbers = "0123456789";
         
         let key = letters.charAt(Math.floor(Math.random() * letters.length));
-        for (let i = 0; i < 4; i++) {
+        for(let i=0; i<4; i++) {
             key += numbers.charAt(Math.floor(Math.random() * numbers.length));
         }
         
@@ -439,10 +505,11 @@
         document.getElementById('newKeyDisplay').innerText = key;
     }
 
-    function selectDuration(element, duration) {
+    function selectDuration(element, text, hours) {
         document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
-        selectedDuration = duration;
+        selectedDurationText = text;
+        selectedDurationHours = hours;
     }
 
     function copyNewKey() {
@@ -452,28 +519,30 @@
 
     function generateNewKey() {
         const devLimit = document.getElementById('deviceLimit').value;
-        
+        const currentTime = new Date().getTime();
+        const expiryTime = currentTime + (selectedDurationHours * 60 * 60 * 1000);
+
         const newKeyObj = {
             key: generatedKey,
-            duration: selectedDuration,
+            durationText: selectedDurationText,
             deviceLimit: devLimit,
             status: "ACTIVE",
-            timestamp: new Date().getTime()
+            expireAt: expiryTime
         };
 
         allKeys.unshift(newKeyObj); 
         localStorage.setItem('falconKeys', JSON.stringify(allKeys));
         
         showToast("Key Generated Successfully!");
-        showMainPage();
+        hideGeneratePage();
+        updateUI();
     }
 
     function deleteKey(index) {
-        // Direct delete karega bina confirm popup ke
         allKeys.splice(index, 1);
         localStorage.setItem('falconKeys', JSON.stringify(allKeys));
         updateUI();
-        showToast("Key Deleted!");
+        showToast("Key Expired & Deleted!");
     }
 
     function copyExistingKey(key) {
@@ -482,44 +551,56 @@
     }
 
     function updateUI() {
-        // Total keys update
-        document.getElementById('totalKeysCount').innerText = allKeys.length;
-        document.getElementById('listCount').innerText = allKeys.length + " keys total";
+        const currentTime = new Date().getTime();
+        
+        // Expired keys automatically removed from list and count
+        allKeys = allKeys.filter(item => item.expireAt > currentTime);
+        localStorage.setItem('falconKeys', JSON.stringify(allKeys));
+
+        document.getElementById('totalKeysCount').innerText = allKeys.length.toString().padStart(2, '0');
+        document.getElementById('listCount').innerText = allKeys.length + " KEYS";
 
         const keysList = document.getElementById('keysList');
         keysList.innerHTML = "";
 
-        // Sirf active keys filter
-        const activeKeys = allKeys.filter(k => k.status === "ACTIVE");
-
-        if (activeKeys.length === 0) {
+        if (allKeys.length === 0) {
             keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px; font-size: 14px;">No active keys found.</p>`;
             return;
         }
 
-        // Active keys display
-        activeKeys.forEach((item) => {
-            // Find original index for deletion
-            const originalIndex = allKeys.findIndex(k => k.key === item.key);
-            
+        allKeys.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'key-card';
             card.innerHTML = `
-                <div class="key-header">
-                    <div class="key-name">FALCON-${item.key}</div>
-                    <div class="status-badge status-active">${item.status}</div>
+                <div class="key-label">LICENSE KEY</div>
+                <div class="key-name">${item.key}</div>
+                
+                <div class="key-info-grid">
+                    <div class="info-box">
+                        <div class="info-label">VALIDITY</div>
+                        <div class="info-value">${item.durationText}</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">DEVICES</div>
+                        <div class="info-value">${item.deviceLimit}</div>
+                    </div>
                 </div>
-                <div class="key-details">Validity: ${item.duration} | Devices: ${item.deviceLimit}</div>
+
                 <div class="key-actions">
-                    <button class="action-btn" onclick="copyExistingKey('FALCON-${item.key}')">COPY</button>
-                    <button class="action-btn delete" onclick="deleteKey(${originalIndex})">DELETE</button>
+                    <button class="action-btn" onclick="copyExistingKey('${item.key}')">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
+                    </button>
+                    <button class="action-btn delete" onclick="deleteKey(${index})">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> DELETE
+                    </button>
                 </div>
             `;
             keysList.appendChild(card);
         });
     }
 
-    // Custom Toast Logic
+    setInterval(updateUI, 10000);
+
     function showToast(message) {
         const toast = document.getElementById("toast");
         toast.innerText = message;
