@@ -29,21 +29,18 @@
             color: var(--text-main);
             display: flex;
             justify-content: center;
-            min-height: 100vh;
-            overflow: hidden; /* Scroll lock */
+            height: 100vh;
+            overflow: hidden; /* Page scroll lock */
         }
 
-        .main-container {
+        .app-wrapper {
             width: 100%;
             max-width: 420px;
             height: 100vh;
-            padding: 15px;
+            display: flex;
+            flex-direction: column;
             position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
         }
-
-        .main-container::-webkit-scrollbar { display: none; }
 
         /* ---------- LOGIN PAGE ---------- */
         #loginPage {
@@ -51,6 +48,7 @@
             flex-direction: column;
             justify-content: center;
             height: 100%;
+            padding: 15px;
         }
 
         .login-card {
@@ -96,7 +94,15 @@
 
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 15px;
+        }
+
+        /* Upar ka fix hissa */
+        .top-fixed-section {
+            flex-shrink: 0; /* Ye shrink nahi hoga */
         }
 
         .header-card {
@@ -140,7 +146,6 @@
         }
 
         .stat-card-long .label { display: flex; align-items: center; font-size: 14px; color: var(--text-muted); letter-spacing: 1px;}
-        .stat-card-long .label span { margin-right: 8px; font-size: 16px; }
         .stat-card-long h1 { font-size: 28px; font-weight: bold; letter-spacing: 1px;}
 
         .btn-generate {
@@ -153,7 +158,7 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,47 +166,52 @@
         }
         .btn-generate span { font-size: 20px; margin-right: 8px; }
 
-        h2.list-title { font-size: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; letter-spacing: 1px;}
+        h2.list-title { font-size: 18px; margin-bottom: 10px; display: flex; justify-content: space-between; letter-spacing: 1px;}
         h2.list-title span { font-size: 12px; color: var(--text-muted); font-weight: normal; margin-top: 4px; letter-spacing: 0;}
 
-        /* ---------- KEY LIST ---------- */
+        /* Neeche ka scrollable hissa */
+        .scrollable-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+        
+        .scrollable-list::-webkit-scrollbar { display: none; }
+
+        /* ---------- KEY LIST (Chota Box) ---------- */
         .key-card {
             background: var(--card-bg);
-            padding: 12px;
-            border-radius: 12px;
+            padding: 10px 12px; /* Padding aur kam ki */
+            border-radius: 10px;
             border: 1px solid var(--border-color);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        .key-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 1px;}
-        .key-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;}
+        .key-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .key-name { font-size: 16px; font-weight: bold; letter-spacing: 1px;}
         
-        .key-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px;
+        .key-details-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
         }
-
-        .info-box {
-            background: #13151A;
-            padding: 8px 10px;
-            border-radius: 8px;
-        }
-
-        .info-box .info-label { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; letter-spacing: 1px;}
-        .info-box .info-value { font-size: 13px; font-weight: bold; }
 
         .key-actions { display: flex; gap: 8px; }
 
         .action-btn {
             flex: 1;
-            padding: 8px;
+            padding: 6px;
             background: transparent;
             border: 1px solid var(--border-color);
             border-radius: 20px;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -213,9 +223,9 @@
         .action-btn span { margin-right: 5px; }
         .action-btn.delete { color: var(--red); border-color: #441111; }
 
-        /* ---------- GENERATE PAGE (Fixed Overlay for Smooth Slide) ---------- */
+        /* ---------- GENERATE PAGE ---------- */
         #generatePage {
-            position: fixed; /* Fixed to cover whole screen */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
@@ -306,6 +316,8 @@
             border-radius: 20px;
             padding: 12px 20px;
             margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            color: white;
         }
 
         .duration-grid {
@@ -427,7 +439,7 @@
 </head>
 <body>
 
-<div class="main-container">
+<div class="app-wrapper">
 
     <div id="loginPage">
         <div class="login-card">
@@ -438,43 +450,50 @@
         </div>
     </div>
 
-    <div id="mainPage">
-        <div class="header-card">
-            <div class="header-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-            </div>
-            <div class="header-title">
-                <h3>ADMIN PANEL</h3>
-                <p>FALCON ENGINE · TITANIUM</p>
-            </div>
-            <div class="settings-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-            </div>
-        </div>
-
-        <div class="stat-card-long">
-            <div class="label">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
-                TOTAL KEYS
-            </div>
-            <h1 id="totalKeysCount">0</h1>
-        </div>
-
-        <button class="btn-generate" onclick="showGeneratePage()">
-            <span>+</span> GENERATE KEYS
-        </button>
-
-        <h2 class="list-title">
-            KEYS LIST
-            <span id="listCount">0 KEYS</span>
-        </h2>
+    <div id="mainPage" style="display: none;">
         
-        <div id="keysList"></div>
+        <!-- Upar ka fix hissa -->
+        <div class="top-fixed-section">
+            <div class="header-card">
+                <div class="header-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                </div>
+                <div class="header-title">
+                    <h3>ADMIN PANEL</h3>
+                    <p>FALCON ENGINE · TITANIUM</p>
+                </div>
+                <div class="settings-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                </div>
+            </div>
+
+            <div class="stat-card-long">
+                <div class="label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                    TOTAL KEYS
+                </div>
+                <h1 id="totalKeysCount">0</h1>
+            </div>
+
+            <button class="btn-generate" onclick="showGeneratePage()">
+                <span>+</span> GENERATE KEYS
+            </button>
+
+            <h2 class="list-title">
+                KEYS LIST
+                <span id="listCount">0 KEYS</span>
+            </h2>
+        </div>
+
+        <!-- Neeche scrollable hissa -->
+        <div class="scrollable-list" id="keysList">
+            <!-- Keys yahan dynamically aayengi -->
+        </div>
     </div>
 
 </div>
 
-<!-- GENERATE PAGE (Now Fixed Overlay) -->
+<!-- GENERATE PAGE -->
 <div id="generatePage">
     <div class="gen-content-wrap">
         <div class="back-header">
@@ -550,7 +569,7 @@
 
         if (user === ADMIN_USER && pass === ADMIN_PASS) {
             document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('mainPage').style.display = 'block';
+            document.getElementById('mainPage').style.display = 'flex';
             updateUI();
         } else {
             showToast("Invalid Credentials!");
@@ -657,27 +676,18 @@
         allKeys.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'key-card';
+            // Naya compact layout
             card.innerHTML = `
-                <div class="key-label">LICENSE KEY</div>
-                <div class="key-name">${item.key}</div>
-                
-                <div class="key-info-grid">
-                    <div class="info-box">
-                        <div class="info-label">VALIDITY</div>
-                        <div class="info-value">${item.durationText}</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">DEVICES</div>
-                        <div class="info-value">${item.deviceLimit}</div>
-                    </div>
+                <div class="key-header-row">
+                    <div class="key-name">${item.key}</div>
                 </div>
-
+                <div class="key-details-text">Validity: ${item.durationText} | Devices: ${item.deviceLimit}</div>
                 <div class="key-actions">
                     <button class="action-btn" onclick="copyExistingKey('${item.key}')">
-                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
+                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></span> COPY
                     </button>
                     <button class="action-btn delete" onclick="openDeletePopup(${index})">
-                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> DELETE
+                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span> DELETE
                     </button>
                 </div>
             `;
