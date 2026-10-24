@@ -30,10 +30,10 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden; /* Scroll lock on body to prevent zoom out issues */
+            overflow: hidden; /* Scroll lock */
         }
 
-        .container {
+        .main-container {
             width: 100%;
             max-width: 420px;
             height: 100vh;
@@ -43,8 +43,7 @@
             overflow-x: hidden;
         }
 
-        /* Hide scrollbar for clean UI */
-        .container::-webkit-scrollbar { display: none; }
+        .main-container::-webkit-scrollbar { display: none; }
 
         /* ---------- LOGIN PAGE ---------- */
         #loginPage {
@@ -98,7 +97,6 @@
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
             display: block;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
         .header-card {
@@ -166,13 +164,13 @@
         h2.list-title { font-size: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; letter-spacing: 1px;}
         h2.list-title span { font-size: 12px; color: var(--text-muted); font-weight: normal; margin-top: 4px; letter-spacing: 0;}
 
-        /* ---------- KEY LIST (Chota kar diya) ---------- */
+        /* ---------- KEY LIST ---------- */
         .key-card {
             background: var(--card-bg);
-            padding: 12px; /* Padding kam ki */
+            padding: 12px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 12px; /* Margin kam kiya */
+            margin-bottom: 12px;
         }
 
         .key-label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; letter-spacing: 1px;}
@@ -215,24 +213,29 @@
         .action-btn span { margin-right: 5px; }
         .action-btn.delete { color: var(--red); border-color: #441111; }
 
-        /* ---------- GENERATE PAGE (Smooth Slide) ---------- */
+        /* ---------- GENERATE PAGE (Fixed Overlay for Smooth Slide) ---------- */
         #generatePage {
-            position: absolute;
+            position: fixed; /* Fixed to cover whole screen */
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: var(--bg-color);
             padding: 15px;
             transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth animation */
-            z-index: 10;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
             display: block;
             overflow-y: auto;
         }
 
         #generatePage.active {
             transform: translateX(0);
+        }
+
+        .gen-content-wrap {
+            max-width: 420px;
+            margin: 0 auto;
         }
 
         .back-header {
@@ -352,7 +355,7 @@
         .popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -404,7 +407,7 @@
             border-radius: 25px;
             padding: 12px 20px;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
@@ -424,7 +427,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="main-container">
 
     <div id="loginPage">
         <div class="login-card">
@@ -469,7 +472,11 @@
         <div id="keysList"></div>
     </div>
 
-    <div id="generatePage">
+</div>
+
+<!-- GENERATE PAGE (Now Fixed Overlay) -->
+<div id="generatePage">
+    <div class="gen-content-wrap">
         <div class="back-header">
              <div class="header-title">
                 <h3>ADMIN PANEL</h3>
@@ -509,22 +516,21 @@
             <button class="btn-confirm-gen" onclick="generateNewKey()">GENERATE KEY</button>
         </div>
     </div>
+</div>
 
-    <!-- DELETE CONFIRM POPUP -->
-    <div class="popup-overlay" id="deletePopup">
-        <div class="popup-box">
-            <h3>Delete Key?</h3>
-            <p>Are you sure you want to delete this key? It will expire immediately.</p>
-            <div class="popup-actions">
-                <button class="popup-btn btn-cancel" onclick="closeDeletePopup()">CLOSE</button>
-                <button class="popup-btn btn-confirm" onclick="confirmDelete()">DELETE</button>
-            </div>
+<!-- DELETE CONFIRM POPUP -->
+<div class="popup-overlay" id="deletePopup">
+    <div class="popup-box">
+        <h3>Delete Key?</h3>
+        <p>Are you sure you want to delete this key? It will expire immediately.</p>
+        <div class="popup-actions">
+            <button class="popup-btn btn-cancel" onclick="closeDeletePopup()">CLOSE</button>
+            <button class="popup-btn btn-confirm" onclick="confirmDelete()">DELETE</button>
         </div>
     </div>
-
-    <div id="toast">Key Copied!</div>
-
 </div>
+
+<div id="toast">Key Copied!</div>
 
 <script>
     const ADMIN_USER = "FALCONBYTAUHEED";
@@ -606,7 +612,6 @@
         updateUI();
     }
 
-    // --- DELETE POPUP LOGIC ---
     function openDeletePopup(index) {
         keyIndexToDelete = index;
         document.getElementById('deletePopup').classList.add('active');
@@ -626,7 +631,6 @@
         }
         closeDeletePopup();
     }
-    // --------------------------
 
     function copyExistingKey(key) {
         navigator.clipboard.writeText(key);
