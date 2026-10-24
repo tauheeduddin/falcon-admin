@@ -34,7 +34,7 @@
         .container {
             width: 100%;
             max-width: 400px;
-            padding: 20px;
+            padding: 15px; /* Size thoda chota kiya */
             position: relative;
         }
 
@@ -48,7 +48,7 @@
 
         .login-card {
             background: var(--card-bg);
-            padding: 30px 20px;
+            padding: 25px 20px; /* Padding kam ki */
             border-radius: 16px;
             border: 1px solid var(--border-color);
             text-align: center;
@@ -57,32 +57,31 @@
         .login-card h2 {
             margin-bottom: 20px;
             letter-spacing: 2px;
+            font-size: 20px; /* Size chota kiya */
         }
 
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], input[type="number"] {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             margin-bottom: 15px;
             background: #000;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-main);
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
         }
 
-        input[type="text"]:focus, input[type="password"]:focus {
-            border-color: var(--text-muted);
-        }
+        input:focus { border-color: var(--text-muted); }
 
         .btn-primary {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             background: var(--btn-grey);
             color: #000;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             letter-spacing: 1px;
@@ -90,60 +89,58 @@
 
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
-            display: none; /* Hidden by default */
+            display: none; 
         }
 
         .header-card {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
+            padding: 15px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .header-icon {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background: #2A2D36;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
+            margin-right: 12px;
+            font-weight: bold;
+            color: #FFD700;
         }
 
-        .header-title h3 { font-size: 18px; }
-        .header-title p { font-size: 12px; color: var(--text-muted); }
+        .header-title h3 { font-size: 16px; }
+        .header-title p { font-size: 11px; color: var(--text-muted); }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
+        /* Ek lamba Total Keys block */
+        .stat-card-long {
             background: var(--card-bg);
             padding: 20px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
         }
 
-        .stat-card .icon { font-size: 20px; margin-bottom: 10px; color: var(--text-muted); }
-        .stat-card h1 { font-size: 32px; margin-bottom: 5px; }
-        .stat-card p { font-size: 12px; color: var(--text-muted); }
+        .stat-card-long h1 { font-size: 36px; }
+        .stat-card-long p { font-size: 14px; color: var(--text-muted); }
 
         .btn-generate {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: var(--btn-grey);
             color: #000;
             border: none;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 20px;
@@ -151,42 +148,9 @@
             flex-direction: column;
             align-items: center;
         }
-        .btn-generate span { font-size: 12px; font-weight: normal; margin-top: 5px; color: #333;}
+        .btn-generate span { font-size: 11px; font-weight: normal; margin-top: 4px; color: #333;}
 
-        .search-bar {
-            width: 100%;
-            padding: 15px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 25px;
-            color: var(--text-main);
-            margin-bottom: 15px;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filter-btn {
-            flex: 1;
-            padding: 10px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-muted);
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .filter-btn.active {
-            background: #333;
-            color: var(--text-main);
-            border-color: #555;
-        }
+        h2.list-title { font-size: 18px; margin-bottom: 15px; display: flex; justify-content: space-between; }
 
         /* ---------- KEY LIST ---------- */
         .key-card {
@@ -194,37 +158,33 @@
             padding: 15px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .key-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .key-name { font-size: 18px; font-weight: bold; }
+        .key-name { font-size: 16px; font-weight: bold; }
         
         .status-badge {
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
         }
         .status-active { background: #1B331F; color: var(--green); }
-        .status-expired { background: #331B1B; color: var(--red); }
 
         .key-details {
-            font-size: 14px;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
-        .key-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .key-actions { display: flex; gap: 10px; }
 
         .action-btn {
             flex: 1;
@@ -233,12 +193,12 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-main);
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
         }
 
         .action-btn.delete {
@@ -256,8 +216,9 @@
             border: none;
             color: var(--text-main);
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             cursor: pointer;
+            padding: 5px;
         }
 
         .gen-card {
@@ -267,20 +228,23 @@
             border: 1px solid var(--border-color);
         }
 
+        .gen-card h2 { font-size: 20px; margin-bottom: 5px; }
+        .gen-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
+
         .gen-key-box {
             background: #0A0A0A;
             padding: 20px;
             border-radius: 12px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border: 1px solid var(--border-color);
         }
 
         .gen-key-text {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .duration-grid {
@@ -296,6 +260,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-muted);
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -306,7 +271,33 @@
             border-color: #666;
         }
 
-        .label { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; font-weight: bold;}
+        .label { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; font-weight: bold;}
+
+        /* Custom Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #2A2D36;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1000;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
 
     </style>
 </head>
@@ -327,25 +318,20 @@
     <!-- MAIN DASHBOARD -->
     <div id="mainPage">
         <div class="header-card">
-            <div class="header-icon">⚡</div>
+            <div class="header-icon">F</div>
             <div class="header-title">
                 <h3>FALCON ENGINE</h3>
                 <p>TITANIUM EDITION</p>
             </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="icon">🔑</div>
+        <!-- Ek lamba Total Keys block -->
+        <div class="stat-card-long">
+            <div>
                 <h1 id="totalKeysCount">0</h1>
                 <p>Total Keys</p>
             </div>
-            <!-- Tune bola active ki jagah Total ka box, toh yahan ek aur box daal diya -->
-            <div class="stat-card">
-                <div class="icon">⚡</div>
-                <h1 id="totalKeysCount2">0</h1>
-                <p>Total Keys</p>
-            </div>
+            <div style="font-size: 40px; color: #333;">#</div>
         </div>
 
         <button class="btn-generate" onclick="showGeneratePage()">
@@ -353,16 +339,11 @@
             <span>Create new access keys</span>
         </button>
 
-        <h2 style="margin-bottom: 10px;">All Keys <span style="font-size: 14px; color: var(--text-muted); float: right; margin-top: 8px;" id="listCount">0 keys total</span></h2>
+        <h2 class="list-title">
+            All Keys
+            <span style="font-size: 13px; color: var(--text-muted); font-weight: normal; margin-top: 4px;" id="listCount">0 keys total</span>
+        </h2>
         
-        <input type="text" class="search-bar" placeholder="🔍 Search keys...">
-        
-        <div class="filter-buttons">
-            <div class="filter-btn active">ALL</div>
-            <div class="filter-btn">ACTIVE</div>
-            <div class="filter-btn">EXPIRED</div>
-        </div>
-
         <div id="keysList">
             <!-- Keys yahan dynamically aayengi -->
         </div>
@@ -370,20 +351,21 @@
 
     <!-- GENERATE PAGE -->
     <div id="generatePage">
+        <!-- Back Button -->
         <button class="back-btn" onclick="showMainPage()">←</button>
         
         <div class="gen-card">
-            <h2 style="margin-bottom: 5px;">GENERATE KEYS</h2>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px;">Auto-generated random key</p>
+            <h2>GENERATE KEYS</h2>
+            <p>Auto-generated random key</p>
             
             <div class="gen-key-box">
                 <p class="label" style="text-align: left;">YOUR NEW KEY</p>
                 <div class="gen-key-text" id="newKeyDisplay">XXXXX</div>
-                <button class="action-btn" style="width: 100%; margin-top: 10px;" onclick="copyNewKey()">📋 COPY KEY</button>
+                <button class="action-btn" style="width: 100%; margin-top: 10px;" onclick="copyNewKey()">COPY KEY</button>
             </div>
 
             <p class="label">DEVICE LIMIT</p>
-            <input type="number" id="deviceLimit" value="1" min="1" style="margin-bottom: 20px;">
+            <input type="number" id="deviceLimit" value="1" min="1" style="margin-bottom: 20px; padding: 10px;">
 
             <p class="label">KEY DURATION</p>
             <div class="duration-grid" id="durationGrid">
@@ -397,9 +379,12 @@
                 <div class="duration-btn" onclick="selectDuration(this, '1 Year')">1 YEAR</div>
             </div>
 
-            <button class="btn-primary" onclick="generateNewKey()">⚡ GENERATE NEW KEY</button>
+            <button class="btn-primary" onclick="generateNewKey()">GENERATE NEW KEY</button>
         </div>
     </div>
+
+    <!-- Custom Toast -->
+    <div id="toast">Key Copied!</div>
 
 </div>
 
@@ -408,7 +393,7 @@
     const ADMIN_USER = "FALCONBYTAUHEED";
     const ADMIN_PASS = "TAUHEEDRAZAQADRI";
 
-    // Data Storage (Local Storage for now)
+    // Data Storage
     let allKeys = JSON.parse(localStorage.getItem('falconKeys')) || [];
     let generatedKey = "";
     let selectedDuration = "7 Days";
@@ -425,7 +410,7 @@
             document.getElementById('mainPage').style.display = 'block';
             updateUI();
         } else {
-            alert("Invalid Credentials!");
+            showToast("Invalid Credentials!");
         }
     }
 
@@ -442,7 +427,6 @@
     }
 
     function generateRandomString() {
-        // Generate 5 char key: 1 Capital Letter + 4 Digits
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const numbers = "0123456789";
         
@@ -463,7 +447,7 @@
 
     function copyNewKey() {
         navigator.clipboard.writeText(generatedKey);
-        alert("Key Copied!");
+        showToast("Key Copied!");
     }
 
     function generateNewKey() {
@@ -477,58 +461,70 @@
             timestamp: new Date().getTime()
         };
 
-        allKeys.unshift(newKeyObj); // Add to top of list
+        allKeys.unshift(newKeyObj); 
         localStorage.setItem('falconKeys', JSON.stringify(allKeys));
         
-        alert("Key Generated Successfully!");
+        showToast("Key Generated Successfully!");
         showMainPage();
     }
 
     function deleteKey(index) {
-        if(confirm("Are you sure you want to delete this key?")) {
-            allKeys.splice(index, 1);
-            localStorage.setItem('falconKeys', JSON.stringify(allKeys));
-            updateUI();
-        }
+        // Direct delete karega bina confirm popup ke
+        allKeys.splice(index, 1);
+        localStorage.setItem('falconKeys', JSON.stringify(allKeys));
+        updateUI();
+        showToast("Key Deleted!");
     }
 
     function copyExistingKey(key) {
         navigator.clipboard.writeText(key);
-        alert("Copied: " + key);
+        showToast("Copied: " + key);
     }
 
     function updateUI() {
-        // Update Total Keys Count
+        // Total keys update
         document.getElementById('totalKeysCount').innerText = allKeys.length;
-        document.getElementById('totalKeysCount2').innerText = allKeys.length;
         document.getElementById('listCount').innerText = allKeys.length + " keys total";
 
         const keysList = document.getElementById('keysList');
         keysList.innerHTML = "";
 
-        if (allKeys.length === 0) {
-            keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px;">No keys found.</p>`;
+        // Sirf active keys filter
+        const activeKeys = allKeys.filter(k => k.status === "ACTIVE");
+
+        if (activeKeys.length === 0) {
+            keysList.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 20px; font-size: 14px;">No active keys found.</p>`;
             return;
         }
 
-        allKeys.forEach((item, index) => {
-            const isExpired = item.status === "EXPIRED";
+        // Active keys display
+        activeKeys.forEach((item) => {
+            // Find original index for deletion
+            const originalIndex = allKeys.findIndex(k => k.key === item.key);
             
             const card = document.createElement('div');
             card.className = 'key-card';
             card.innerHTML = `
                 <div class="key-header">
                     <div class="key-name">FALCON-${item.key}</div>
-                    <div class="status-badge ${isExpired ? 'status-expired' : 'status-active'}">${item.status}</div>
+                    <div class="status-badge status-active">${item.status}</div>
                 </div>
                 <div class="key-details">Validity: ${item.duration} | Devices: ${item.deviceLimit}</div>
                 <div class="key-actions">
-                    <button class="action-btn" onclick="copyExistingKey('FALCON-${item.key}')">📋 COPY</button>
-                    <button class="action-btn delete" onclick="deleteKey(${index})">🗑️ DELETE</button>
+                    <button class="action-btn" onclick="copyExistingKey('FALCON-${item.key}')">COPY</button>
+                    <button class="action-btn delete" onclick="deleteKey(${originalIndex})">DELETE</button>
                 </div>
             `;
             keysList.appendChild(card);
         });
+    }
+
+    // Custom Toast Logic
+    function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.innerText = message;
+        toast.className = "show";
+        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500);
     }
 </script>
 
