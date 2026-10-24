@@ -30,7 +30,7 @@
             display: flex;
             justify-content: center;
             height: 100vh;
-            overflow: hidden; /* Page scroll lock */
+            overflow: hidden;
         }
 
         .app-wrapper {
@@ -44,7 +44,7 @@
 
         /* ---------- LOGIN PAGE ---------- */
         #loginPage {
-            display: flex;
+            display: flex; /* Default flex */
             flex-direction: column;
             justify-content: center;
             height: 100%;
@@ -94,15 +94,14 @@
 
         /* ---------- MAIN DASHBOARD ---------- */
         #mainPage {
-            display: flex;
+            display: none; /* Shuru me hidden rahega */
             flex-direction: column;
             height: 100%;
             padding: 15px;
         }
 
-        /* Upar ka fix hissa */
         .top-fixed-section {
-            flex-shrink: 0; /* Ye shrink nahi hoga */
+            flex-shrink: 0;
         }
 
         .header-card {
@@ -169,7 +168,6 @@
         h2.list-title { font-size: 18px; margin-bottom: 10px; display: flex; justify-content: space-between; letter-spacing: 1px;}
         h2.list-title span { font-size: 12px; color: var(--text-muted); font-weight: normal; margin-top: 4px; letter-spacing: 0;}
 
-        /* Neeche ka scrollable hissa */
         .scrollable-list {
             flex-grow: 1;
             overflow-y: auto;
@@ -181,7 +179,7 @@
         /* ---------- KEY LIST (Chota Box) ---------- */
         .key-card {
             background: var(--card-bg);
-            padding: 10px 12px; /* Padding aur kam ki */
+            padding: 10px 12px;
             border-radius: 10px;
             border: 1px solid var(--border-color);
             margin-bottom: 10px;
@@ -441,6 +439,7 @@
 
 <div class="app-wrapper">
 
+    <!-- LOGIN PAGE -->
     <div id="loginPage">
         <div class="login-card">
             <h2>ADMIN PANEL</h2>
@@ -450,9 +449,9 @@
         </div>
     </div>
 
-    <div id="mainPage" style="display: none;">
+    <!-- MAIN DASHBOARD -->
+    <div id="mainPage">
         
-        <!-- Upar ka fix hissa -->
         <div class="top-fixed-section">
             <div class="header-card">
                 <div class="header-icon">
@@ -485,7 +484,6 @@
             </h2>
         </div>
 
-        <!-- Neeche scrollable hissa -->
         <div class="scrollable-list" id="keysList">
             <!-- Keys yahan dynamically aayengi -->
         </div>
@@ -568,7 +566,9 @@
         const pass = document.getElementById('adminPass').value;
 
         if (user === ADMIN_USER && pass === ADMIN_PASS) {
+            // Login page hide karo
             document.getElementById('loginPage').style.display = 'none';
+            // Main page flex me dikhao
             document.getElementById('mainPage').style.display = 'flex';
             updateUI();
         } else {
@@ -676,7 +676,6 @@
         allKeys.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'key-card';
-            // Naya compact layout
             card.innerHTML = `
                 <div class="key-header-row">
                     <div class="key-name">${item.key}</div>
